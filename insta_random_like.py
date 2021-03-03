@@ -21,9 +21,9 @@ email = driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[1]/div/label/
 passw = driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
 
 email.clear()
-email.send_keys('agiasbayu2@gmail.com')
+email.send_keys('emailanda')
 passw.clear()
-passw.send_keys('bajingan1234')
+passw.send_keys('passwordanda')
 clickk('//*[@id="loginForm"]/div/div[3]/button')
 
 clickk('//*[@id="react-root"]/section/main/div/div/div/div/button')
@@ -66,7 +66,7 @@ def follow_random():
         clickk('/html/body/div[5]/div/div/div[2]/ul/div/li['+str(i+1)+']/div/div[3]/button')
 
 def check_following():
-    username = 'alagias_bayu'
+    username = 'irenegloriia'
     time.sleep(2)
     user = driver.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[2]/input')
     user.send_keys(username)
@@ -84,17 +84,20 @@ def check_following():
     following_number = driver.find_element_by_xpath( "//*[@id='react-root']/section/main/div/header/section/ul/li[3]/a/span").text
     print(following_number)
     j = 1
-    while j <= int(following_number):
+    while j < int(following_number):
         try:
             nama = driver.find_element_by_xpath('/html/body/div[5]/div/div/div[2]/ul/div/li['+str(j)+']/div/div[1]/div[2]/div[1]/span/a').text
             followings.append(nama)
             j+=1
+            print(j)
         except:
             driver.execute_script(
                 "arguments[0].scrollTop = arguments[0].scrollHeight",following_window
             )
-    # print(followings)
+            time.sleep(1)
+            print('scroll')
     clickk('/html/body/div[5]/div/div/div[1]/div/div[2]/button')
+    # print(followings)
 
 def check_followers():
     # username = 'alagias_bayu'
@@ -115,17 +118,20 @@ def check_followers():
     follower_number = driver.find_element_by_xpath( "//*[@id='react-root']/section/main/div/header/section/ul/li[2]/a/span").text
     print(follower_number)
     j = 1
-    while j <= int(follower_number):
+    while j < int(follower_number):
         try:
             nama = driver.find_element_by_xpath('/html/body/div[5]/div/div/div[2]/ul/div/li['+str(j)+']/div/div[1]/div[2]/div[1]/span/a').text
             followerss.append(nama)
             j+=1
+            print(nama)
         except:
             driver.execute_script(
                 "arguments[0].scrollTop = arguments[0].scrollHeight",follower_window
             )
-    # print(followerss)
+            time.sleep(1)
+            print('scroll')
     clickk('/html/body/div[5]/div/div/div[1]/div/div[2]/button')
+    # print(followerss)
 
 def check_unmutual():
     non_mutual = [user for user in followings if user not in followerss]

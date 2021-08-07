@@ -12,16 +12,16 @@ def click(x,y):
     print('jalan1')
     ctypes.windll.user32.SetCursorPos(x, y)
     time.sleep(1)
-    # pyautogui.click()
+    # pyautogui.click(x, y, button='left')
     # win32api.SetCursorPos((x,y))
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
-    time.sleep(0.1)
+    time.sleep(0.3)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
     # win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,x,y,0,0)
     # time.sleep(0.1)
     # win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,x,y,0,0)
-    # # pydirectinput.click()
-    # time.sleep(1)
+    # pydirectinput.click()
+    time.sleep(1)
 
 def space():
     print('Pencet spasi')
@@ -35,6 +35,10 @@ def space():
 
 time.sleep(3)
 
+korx = 1116
+kory = 747
+Rrr = 37
+
 while keyboard.is_pressed('q') == False:
     print('jalan2')
     pyautogui.screenshot('file.png')
@@ -42,12 +46,47 @@ while keyboard.is_pressed('q') == False:
     coba = 0
     coba2 = 0
     terima = False
+    while(coba <= 5):
+        eventt = pyautogui.locateCenterOnScreen('lvlupfishing.png', confidence=0.8)
+        if(eventt != None):
+            print('masuk lvlup')
+            x, y = eventt
+            click(int(x), int(y))
+            coba = 6
+            terima = True
+        else :
+            coba += 1
+    
+    coba = 0
 
-    if(img.getpixel((1641,902))[0]!=49):
+    while(coba <= 5):
+        eventt = pyautogui.locateCenterOnScreen('inventory - hadiah.png', confidence=0.8)
+        if(eventt != None):
+            print('Masuk inventory - hadiah')
+            x, y = eventt
+            click(int(x), int(y))
+            coba = 6
+            while(coba2 <= 10):
+                xi = pyautogui.locateCenterOnScreen('x inven.png', confidence=0.8)
+                if(xi != None):
+                    time.sleep(2)
+                    print('Masuk x')
+                    x, y = xi
+                    click(int(x), int(y))
+                    coba2 = 11
+                    terima = True
+                else:
+                    coba2+=1
+        else :
+            coba += 1
+    
+    coba = 0
+
+    if(img.getpixel((korx,kory))[0]!=Rrr):
         print('jalan3')
         while(coba <= 5):
-            terima1 = pyautogui.locateCenterOnScreen('terima event 1.png', grayscale=True, confidence=0.6)
-            terima2 = pyautogui.locateCenterOnScreen('terima event 2.png', grayscale=True, confidence=0.6)
+            terima1 = pyautogui.locateCenterOnScreen('terima event 1.png', confidence=0.8)
+            terima2 = pyautogui.locateCenterOnScreen('terima event 2.png', confidence=0.8)
             if(terima1 != None or terima2 != None):
                 print('Masuk terima')
                 sudah = False
@@ -64,13 +103,16 @@ while keyboard.is_pressed('q') == False:
                         space()
                         terima = True
                     if(terima):
+                        time.sleep(2)
                         print('Masuk teriimaaa')
                         while(coba2 <= 10):
-                            selesai = pyautogui.locateCenterOnScreen('selesai event.png', grayscale=True, confidence=0.6)
+                            selesai = pyautogui.locateCenterOnScreen('selesai event.png', confidence=0.8)
                             if(selesai != None):
                                 print('Masuk selesai')
                                 x, y = selesai
+                                time.sleep(1)
                                 click(int(x), int(y))
+                                time.sleep(2)
                                 terima = False
                                 coba2 = 11
                                 coba = 6
@@ -85,10 +127,10 @@ while keyboard.is_pressed('q') == False:
 
 
         if(not terima):
-            click(1641,902)
+            click(korx,kory)
             ketemu = False
             while not ketemu:
-                jual = pyautogui.locateCenterOnScreen('jual.png', grayscale=True, confidence=0.6)
+                jual = pyautogui.locateCenterOnScreen('jual.png', confidence=0.8)
                 if jual != None:
                     x,y = jual
                     print('masuk jual')
@@ -97,7 +139,7 @@ while keyboard.is_pressed('q') == False:
                     tutup = False
                     time.sleep(2)
                     while not tutup:
-                        tp = pyautogui.locateCenterOnScreen('tutup pancing 2.png', grayscale=True, confidence=0.6)
+                        tp = pyautogui.locateCenterOnScreen('tutup pancing 2.png', confidence=0.8)
                         if tp != None:
                             x, y = tp
                             print('masuk tutup')
